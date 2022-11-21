@@ -37,36 +37,7 @@ jobs:
             owner: 'scribe-security'
             repository: 'GitHub-Posture'
             access-token: ${{ secrets.GH_ACCESS_TOKEN }}
-      
             
-      - name: Generate cyclonedx json SBOM
-        id: gensbom_json
-        uses: scribe-security/actions/gensbom/bom@master
-        with:
-          type: docker            
-          target: date:latest
-          format: json
-          verbose: 2
-          force: true
-          scribe-enable: true
-          product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
-          scribe-client-id: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_ID }}
-          scribe-client-secret: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_SECRET }}
-          scribe-url: ${{ env.SCRIBE_URL }}
-          scribe-login-url: ${{ env.SCRIBE_LOGIN_URL }}
-          scribe-audience: ${{ env.SCRIBE_AUDIENCE }}
-
-      - name: Generate slsa prov statement
-        id: gensbom_slsa
-        uses: scribe-security/actions/gensbom/bom@master
-        with:
-          type: docker
-          target: 'date:latest'
-          format: statement-slsa
-          product-key: ${{ secrets.SCRIBE_DEV_PRODUCT_KEY }}
-          verbose: 2
-          force: true
-          
       - name: generate slsa report
         run: | # echo "SLSA is great" > slsa.json
           cat input.json | sed "s/GH_TOKEN/${{ secrets.GH_ACCESS_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.slsa.report
