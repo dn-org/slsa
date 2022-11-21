@@ -40,4 +40,4 @@ jobs:
             
       - name: generate slsa report
         run: | # echo "SLSA is great" > slsa.json
-          cat input.json | sed "s/GH_TOKEN/${{ secrets.GH_ACCESS_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.branches.filtered_protection_data
+          cat input.json | sed "s/GH_TOKEN/${{ secrets.GH_ACCESS_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.branches.protection_data
