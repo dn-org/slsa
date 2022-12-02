@@ -52,6 +52,7 @@ jobs:
         run: | # echo "SLSA is great" > slsa.json
           cat input.json | sed "s/GH_TOKEN/${{ secrets.AKUR_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.slsa.retained_indefinitely_branch_result
           cat input.json | sed "s/GH_TOKEN/${{ secrets.AKUR_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.slsa.build_isolated_result
+          cat input.json | sed "s/GH_TOKEN/${{ secrets.AKUR_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.dependencies.responses
           cat input.json | sed "s/GH_TOKEN/${{ secrets.AKUR_TOKEN }}/" | ./opa eval -I --format=pretty -b GitHub-Posture/github data.github.branches.responses
 
       #- uses: actions/upload-artifact@v2
