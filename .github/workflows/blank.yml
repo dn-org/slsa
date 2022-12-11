@@ -1,0 +1,30 @@
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select the environment to deploy?
+        required: true
+        options:
+          - dev
+          - staging
+          - prod
+
+  # Allows you to run this workflow manually from the Actions tab
+name: "test-environments"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  echo:
+    name: echo
+    runs-on: ubuntu-latest
+    environment: ${{ needs.Stage-Setup.outputs.stage }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: echo
+        run:
+          echo ${{ secrets.FOO }}
